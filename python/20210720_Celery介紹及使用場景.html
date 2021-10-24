@@ -1,0 +1,561 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>2021/07/20 Celery介紹及使用場景 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Python
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.2.1" data-path="20210720_Celery介紹及使用場景.html">
+            
+                <a href="20210720_Celery介紹及使用場景.html">
+            
+                    
+                    2021/07/20 Celery介紹及使用場景
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >2021/07/20 Celery介紹及使用場景</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="20210720-celery&#x4ECB;&#x7D39;&#x53CA;&#x4F7F;&#x7528;&#x5834;&#x666F;">2021/07/20 Celery&#x4ECB;&#x7D39;&#x53CA;&#x4F7F;&#x7528;&#x5834;&#x666F;</h1>
+<p>[TOC]</p>
+<h2 id="&#x57FA;&#x672C;&#x4F7F;&#x7528;">&#x57FA;&#x672C;&#x4F7F;&#x7528;</h2>
+<h3 id="&#x4E00;&#x3001;&#x67B6;&#x69CB;&#x5716;">&#x4E00;&#x3001;&#x67B6;&#x69CB;&#x5716;</h3>
+<p><img src="D:\Work\Notes\Blogs\image\image-20210726053724294.png" alt="image-20210726053724294"></p>
+<pre><code class="lang-shell"># &#x8AAA;&#x660E;
+1. Celery&#x7684;&#x6A21;&#x584A;&#xFF0C;&#x53EF;&#x4EE5;&#x5206;&#x70BA;beat, worker, broker, backend(&#x53EF;&#x9078;) &#x56DB;&#x500B;&#x90E8;&#x4EFD;
+2. &#x9996;&#x5148;&#xFF0C;&#x6703;&#x5148;&#x5B9A;&#x7FA9;&#x597D;worker&#x9700;&#x8981;&#x57F7;&#x884C;&#x7684;&#x51FD;&#x6578;&#x6216;&#x8173;&#x672C;
+3. &#x7570;&#x6B65;&#x8ACB;&#x6C42;&#x4F86;&#x6E90;&#xFF0C;&#x53EF;&#x4EE5;&#x624B;&#x52D5;&#x8ABF;&#x7528;&#x6216;&#x662F;&#x914D;&#x7F5D;beat&#x5B9A;&#x6642;&#x8ABF;&#x7528;&#xFF0C;&#x5C07;&#x8ACB;&#x6C42;&#x767C;&#x5230;broker(RabbitMQ)
+4. worker&#x6536;&#x5230;&#x6D88;&#x606F;&#x5F8C;&#xFF0C;&#x57F7;&#x884C;&#x51FD;&#x6578;&#xFF0C;&#x6700;&#x5F8C;&#x5C07;&#x7D50;&#x679C;&#x4FDD;&#x5B58;&#x65BC;backend(Redis)
+</code></pre>
+<h3 id="&#x4E8C;&#x3001;&#x55AE;&#x6A5F;&#x4F7F;&#x7528;">&#x4E8C;&#x3001;&#x55AE;&#x6A5F;&#x4F7F;&#x7528;</h3>
+<pre><code class="lang-python"><span class="hljs-comment"># tasks.py</span>
+<span class="hljs-comment">#!/usr/bin/env python</span>
+<span class="hljs-keyword">import</span> socket
+<span class="hljs-keyword">from</span> celery <span class="hljs-keyword">import</span> Celery
+app = Celery(<span class="hljs-string">&apos;demo&apos;</span>,
+             broker=<span class="hljs-string">&apos;amqp://admin:admin@192.168.1.15/&apos;</span>,
+             backend=<span class="hljs-string">&apos;redis://192.168.1.15&apos;</span>)
+<span class="hljs-meta">@app.task()</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">hi</span><span class="hljs-params">()</span>:</span>
+    hostname = socket.gethostname()
+    msg = f<span class="hljs-string">&apos;Hi, I am {hostname}&apos;</span>
+    <span class="hljs-keyword">return</span> msg
+<span class="hljs-meta">@app.on_after_configure.connect</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">schedule</span><span class="hljs-params">(sender, **kwargs)</span>:</span>
+    sender.add_periodic_task(<span class="hljs-number">3</span>, hi.s(), name=<span class="hljs-string">&apos;say hi&apos;</span>)
+</code></pre>
+<pre><code class="lang-shell"># &#x555F;&#x52D5;
+&gt;&gt;&gt; celery -A tasks worker -l INFO
+ -------------- celery@svr012.viger.click v5.1.2 (sun-harmonics)
+--- ***** ----- 
+-- ******* ---- Linux-3.10.0-1160.11.1.el7.x86_64-x86_64-with-centos-7.9.2009-Core 2021-07-26 05:57:17
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .&gt; app:         demo:0x7f42dc217310
+- ** ---------- .&gt; transport:   amqp://admin:**@192.168.1.15:5672//
+- ** ---------- .&gt; results:     redis://192.168.1.15/
+- *** --- * --- .&gt; concurrency: 2 (prefork)
+-- ******* ---- .&gt; task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .&gt; celery           exchange=celery(direct) key=celery               
+[tasks]
+  . tasks.hi
+
+[2021-07-26 05:57:17,382: INFO/MainProcess] Connected to amqp://admin:**@192.168.1.15:5672//
+[2021-07-26 05:57:17,396: INFO/MainProcess] mingle: searching for neighbors
+[2021-07-26 05:57:18,434: INFO/MainProcess] mingle: all alone
+[2021-07-26 05:57:18,473: INFO/MainProcess] celery@svr012.viger.click ready.
+</code></pre>
+<pre><code class="lang-shell"># &#x76F4;&#x63A5;&#x8ABF;&#x7528;
+&gt;&gt;&gt; from tasks import hi
+&gt;&gt;&gt; res = hi.delay()
+&gt;&gt;&gt; res.get()
+&apos;Hi, I am svr012.viger.click&apos;
+</code></pre>
+<pre><code class="lang-shell"># &#x5B9A;&#x6642;&#x4EFB;&#x52D9;
+&gt;&gt;&gt; celery -A tasks beat -l INFO
+celery beat v5.1.2 (sun-harmonics) is starting.
+__    -    ... __   -        _
+LocalTime -&gt; 2021-07-26 06:22:16
+Configuration -&gt;
+    . broker -&gt; amqp://admin:**@192.168.1.15:5672//
+    . loader -&gt; celery.loaders.app.AppLoader
+    . scheduler -&gt; celery.beat.PersistentScheduler
+    . db -&gt; celerybeat-schedule
+    . logfile -&gt; [stderr]@%INFO
+    . maxinterval -&gt; 5.00 minutes (300s)
+[2021-07-26 06:22:16,906: INFO/MainProcess] beat: Starting...
+[2021-07-26 06:22:19,935: INFO/MainProcess] Scheduler: Sending due task say hi (tasks.hi)
+[2021-07-26 06:22:22,909: INFO/MainProcess] Scheduler: Sending due task say hi (tasks.hi)
+</code></pre>
+<h3 id="&#x4E09;&#x3001;&#x5206;&#x4F48;&#x5F0F;&#x4F7F;&#x7528;">&#x4E09;&#x3001;&#x5206;&#x4F48;&#x5F0F;&#x4F7F;&#x7528;</h3>
+<pre><code class="lang-shell"># &#x8DE8;&#x670D;&#x52D9;&#x5668;&#x57F7;&#x884C;
+&gt;&gt;&gt; from celery import Celery
+&gt;&gt;&gt; app = Celery(&apos;demo&apos;,
+...              broker=&apos;amqp://admin:admin@192.168.1.15/&apos;,
+...              backend=&apos;redis://192.168.1.15&apos;)
+&gt;&gt;&gt; res = app.send_task(&apos;tasks.hi&apos;)
+&gt;&gt;&gt; res.get()
+&apos;Hi, I am svr012.viger.click&apos;
+</code></pre>
+<pre><code class="lang-shell"># &#x5B9A;&#x6642;&#x4EFB;&#x52D9;
+#!/usr/bin/env python
+from celery import Celery
+app = Celery(&apos;demo&apos;,
+             broker=&apos;amqp://admin:admin@192.168.1.15/&apos;,
+             backend=&apos;redis://192.168.1.15&apos;)
+@app.on_after_configure.connect
+def schedule(sender, **kwargs):
+    sender.add_periodic_task(3, app.signature(&apos;tasks.hi&apos;), name=&apos;say hi&apos;)
+
+&gt;&gt; celery -A tasks beat -l INFO
+</code></pre>
+<h2 id="&#x642D;&#x914D;django">&#x642D;&#x914D;Django</h2>
+<h3 id="&#x4E00;&#x3001;&#x67B6;&#x69CB;&#x5716;">&#x4E00;&#x3001;&#x67B6;&#x69CB;&#x5716;</h3>
+<p><img src="D:\Work\Notes\Blogs\image\image-20210726081709325.png" alt="image-20210726081709325"></p>
+<pre><code class="lang-shell"># &#x8AAA;&#x660E;
+1. &#x64B0;&#x5BEB;Django views&#x5BE6;&#x73FE;&#x5177;&#x9AD4;&#x529F;&#x80FD;
+2. Worker&#x5275;&#x5EFA;request&#x985E;&#x8ABF;&#x7528;views
+3. HTTP&#x8ACB;&#x6C42;&#x53EF;&#x4EE5;&#x589E;&#x52A0;&#x7570;&#x6B65;&#x8ABF;&#x7528;&#x7684;&#x529F;&#x80FD;
+4. &#x5B9A;&#x6642;&#x4EFB;&#x52D9;&#x7570;&#x5E38;&#x6216;&#x662F;&#x7DDA;&#x4E0A;&#x6709;&#x72C0;&#x6CC1;&#x6642;&#xFF0C;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8ABF;&#x7528;&#x63A5;&#x53E3;&#x4F86;&#x57F7;&#x884C;&#x4EFB;&#x52D9;
+</code></pre>
+<h3 id="&#x4E8C;&#x3001;&#x76EE;&#x9304;&#x8A2D;&#x8A08;">&#x4E8C;&#x3001;&#x76EE;&#x9304;&#x8A2D;&#x8A08;</h3>
+<pre><code class="lang-shell"># &#x90E8;&#x4EFD;&#x7C21;&#x7565;
+.
+&#x251C;&#x2500;&#x2500; main                   # Django &#x4E3B;&#x76EE;&#x9304;&#x6587;&#x4EF6;
+&#x2502;   &#x251C;&#x2500;&#x2500; celery.py          # Celery Beat&#x5B9A;&#x6642;&#x4EFB;&#x52D9;
+&#x2502;   &#x251C;&#x2500;&#x2500; config.yml
+&#x2502;   &#x251C;&#x2500;&#x2500; __init__.py
+&#x2502;   &#x251C;&#x2500;&#x2500; settings.py        # Django &#x914D;&#x7F5D;&#x6587;&#x4EF6;
+&#x2502;   &#x251C;&#x2500;&#x2500; urls.py
+&#x2502;   &#x251C;&#x2500;&#x2500; uwsgi.ini
+&#x2502;   &#x2514;&#x2500;&#x2500; wsgi.py
+&#x251C;&#x2500;&#x2500; apps                   # Django &#x61C9;&#x7528;
+&#x2502;   &#x2514;&#x2500;&#x2500; common
+&#x2502;       &#x251C;&#x2500;&#x2500; apps.py
+&#x2502;       &#x251C;&#x2500;&#x2500; tasks
+&#x2502;       &#x2502;   &#x2514;&#x2500;&#x2500; demo.py    # Celery Worker&#x529F;&#x80FD;
+&#x2502;       &#x251C;&#x2500;&#x2500; urls.py
+&#x2502;       &#x2514;&#x2500;&#x2500; views
+&#x2502;           &#x2514;&#x2500;&#x2500; demo.py    # Django &#x8655;&#x7406;http&#x8ACB;&#x6C42;&#x7684;views
+&#x251C;&#x2500;&#x2500; libs                   # &#x516C;&#x5171;&#x6A21;&#x584A;
+&#x2502;   &#x251C;&#x2500;&#x2500; base
+&#x2502;   &#x251C;&#x2500;&#x2500; celery
+&#x2502;   &#x2502;   &#x2514;&#x2500;&#x2500; scheduler.py
+&#x2502;   &#x2514;&#x2500;&#x2500; tool.py
+&#x251C;&#x2500;&#x2500; logs
+&#x251C;&#x2500;&#x2500; manage.py
+&#x251C;&#x2500;&#x2500; celery.sh              # Celery &#x555F;&#x52D5;&#x8173;&#x672C;
+&#x2514;&#x2500;&#x2500; uwsgi.sh               # uWSGI  &#x555F;&#x52D5;&#x8173;&#x672C;
+</code></pre>
+<h3 id="&#x4E09;&#x3001;&#x64B0;&#x5BEB;&#x63A5;&#x53E3;">&#x4E09;&#x3001;&#x64B0;&#x5BEB;&#x63A5;&#x53E3;</h3>
+<pre><code class="lang-python"><span class="hljs-comment"># apps/common/views/demo.py</span>
+<span class="hljs-keyword">from</span> main.settings <span class="hljs-keyword">import</span> HOSTNAME
+<span class="hljs-keyword">from</span> libs.base.viewsets <span class="hljs-keyword">import</span> BaseViewSet
+<span class="hljs-keyword">from</span> rest_framework.decorators <span class="hljs-keyword">import</span> action
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DemoViewSet</span><span class="hljs-params">(BaseViewSet)</span>:</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, *args, **kwargs)</span>:</span>
+        super().__init__(*args, **kwargs)
+
+<span class="hljs-meta">    @action(methods=[&apos;GET&apos;], detail=False)</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">hostname</span><span class="hljs-params">(self, request, *args, **kwargs)</span>:</span>
+        <span class="hljs-keyword">return</span> self.success_info(<span class="hljs-string">&apos;&apos;</span>, HOSTNAME)
+</code></pre>
+<h3 id="&#x56DB;&#x3001;&#x64B0;&#x5BEB;worker&#x4EFB;&#x52D9;">&#x56DB;&#x3001;&#x64B0;&#x5BEB;worker&#x4EFB;&#x52D9;</h3>
+<pre><code class="lang-python"><span class="hljs-comment"># apps/common/tasks/demo.py</span>
+<span class="hljs-keyword">from</span> main.celery <span class="hljs-keyword">import</span> app
+
+<span class="hljs-meta">@app.task(expires=60)</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">hostname</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-keyword">from</span> apps.common.views.demo <span class="hljs-keyword">import</span> DemoViewSet
+    <span class="hljs-comment"># &#x751F;&#x6210;Request&#x7C7B;&#x53CA;request&#x5B9E;&#x4F8B;</span>
+    property = {
+        <span class="hljs-string">&apos;method&apos;</span>: <span class="hljs-string">&apos;GET&apos;</span>,
+        <span class="hljs-string">&apos;query_params&apos;</span>: {},
+        <span class="hljs-string">&apos;data&apos;</span>: {},
+        <span class="hljs-string">&apos;user&apos;</span>: <span class="hljs-keyword">None</span>,
+    }
+    request = type(<span class="hljs-string">&apos;Request&apos;</span>, (object,), property)
+    view = DemoViewSet()
+    response = view.hostname(request)
+    <span class="hljs-keyword">return</span> response.data.get(<span class="hljs-string">&apos;result&apos;</span>)
+</code></pre>
+<h3 id="&#x4E94;&#x3001;&#x8A2D;&#x7F5D;beat&#x5B9A;&#x6642;&#x4EFB;&#x52D9;">&#x4E94;&#x3001;&#x8A2D;&#x7F5D;beat&#x5B9A;&#x6642;&#x4EFB;&#x52D9;</h3>
+<pre><code class="lang-python"><span class="hljs-comment"># main/celery.py</span>
+<span class="hljs-keyword">from</span> libs.celery.scheduler <span class="hljs-keyword">import</span> app
+<span class="hljs-keyword">from</span> apps.common.tasks <span class="hljs-keyword">import</span> demo
+
+<span class="hljs-comment"># &#x5B9A;&#x65F6;&#x4EFB;&#x52A1;</span>
+<span class="hljs-meta">@app.on_after_configure.connect</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">schedule</span><span class="hljs-params">(sender, **kwargs)</span>:</span>
+    add = sender.add_periodic_task
+    <span class="hljs-comment"># &#x7372;&#x53D6;hostname</span>
+    add(<span class="hljs-number">3</span>, demo.hostname.s(), name=<span class="hljs-string">&apos;get hostname&apos;</span>)
+</code></pre>
+<h3 id="&#x516D;&#x3001;&#x5BE6;&#x73FE;&#x7570;&#x6B65;&#x8ACB;&#x6C42;&#x7D50;&#x679C;&#x67E5;&#x8A62;">&#x516D;&#x3001;&#x5BE6;&#x73FE;&#x7570;&#x6B65;&#x8ACB;&#x6C42;+&#x7D50;&#x679C;&#x67E5;&#x8A62;</h3>
+<pre><code class="lang-python"><span class="hljs-comment"># apps/common/views/demo.py</span>
+<span class="hljs-keyword">import</span> time
+<span class="hljs-keyword">from</span> rest_framework.decorators <span class="hljs-keyword">import</span> action
+<span class="hljs-keyword">from</span> main.settings <span class="hljs-keyword">import</span> logger, HOSTNAME
+<span class="hljs-keyword">from</span> libs.base.viewsets <span class="hljs-keyword">import</span> BaseViewSet
+<span class="hljs-keyword">from</span> libs.tool <span class="hljs-keyword">import</span> Param
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DemoViewSet</span><span class="hljs-params">(BaseViewSet)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, *args, **kwargs)</span>:</span>
+        super().__init__(*args, **kwargs)
+
+<span class="hljs-meta">    @action(methods=[&apos;GET&apos;], detail=False)</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">hostname</span><span class="hljs-params">(self, request, *args, **kwargs)</span>:</span>
+        <span class="hljs-comment"># &#x53C3;&#x6578;&#x6821;&#x9A8C;</span>
+        param = Param(request.query_params)
+        <span class="hljs-keyword">try</span>:
+            param.parse(<span class="hljs-string">&apos;sync&apos;</span>, default=<span class="hljs-keyword">False</span>, type=bool)
+            param.parse(<span class="hljs-string">&apos;task_id&apos;</span>, default=<span class="hljs-string">&apos;&apos;</span>, type=str)
+        <span class="hljs-keyword">except</span> Exception:
+            msg = f<span class="hljs-string">&apos;&#x53C2;&#x6570; {param._miss_key} &#x7F3A;&#x5931;&apos;</span>
+            logger.error(msg)
+            <span class="hljs-keyword">return</span> self.validation_error(msg)
+        <span class="hljs-comment"># &#x7D50;&#x679C;&#x67E5;&#x8A62;</span>
+        <span class="hljs-keyword">if</span> param.task_id:
+            <span class="hljs-keyword">from</span> main.celery <span class="hljs-keyword">import</span> app
+            <span class="hljs-keyword">from</span> celery.result <span class="hljs-keyword">import</span> AsyncResult
+            res = AsyncResult(app=app, id=param.task_id)
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> res.ready():
+                msg = <span class="hljs-string">&apos;the task is not finished yet&apos;</span>
+                <span class="hljs-keyword">return</span> self.warning_error(msg)
+            <span class="hljs-keyword">return</span> self.success_info(<span class="hljs-string">&apos;&apos;</span>, res.get())
+        <span class="hljs-comment"># &#x7570;&#x6B65;&#x8ACB;&#x6C42;</span>
+        <span class="hljs-keyword">if</span> param.sync:
+            <span class="hljs-keyword">from</span> apps.common.tasks.demo <span class="hljs-keyword">import</span> hostname
+            res = hostname.delay()
+            <span class="hljs-keyword">return</span> self.success_info(<span class="hljs-string">&apos;&apos;</span>, res)
+
+        time.sleep(<span class="hljs-number">10</span>)
+        <span class="hljs-keyword">return</span> self.success_info(<span class="hljs-string">&apos;&apos;</span>, HOSTNAME)
+</code></pre>
+<h2 id="&#x96C6;&#x7FA4;&#x5E03;&#x7F72;">&#x96C6;&#x7FA4;&#x5E03;&#x7F72;</h2>
+<h3 id="&#x4E00;&#x3001;&#x4E94;&#x7A2E;&#x5834;&#x666F;">&#x4E00;&#x3001;&#x4E94;&#x7A2E;&#x5834;&#x666F;</h3>
+<p><img src="D:\Work\Notes\Blogs\image\image-20210727052830721.png" alt="image-20210727052830721"></p>
+<pre><code class="lang-shell">1.&#x5B9A;&#x6642;&#x4EFB;&#x52D9;&#xFF0C;&#x4E00;&#x500B;beat&#x767C;&#x9001;&#xFF0C;&#x4E00;&#x500B;Worker&#x57F7;&#x884C;
+&#x5834;&#x666F;&#xFF1A;&#x76E3;&#x63A7;&#x544A;&#x8B66;&#xFF0C;&#x53EA;&#x80FD;&#x4E00;&#x500B;baet&#x767C;&#x9001;&#x6AA2;&#x6E2C;&#x8ACB;&#x6C42;&#xFF0C;&#x4E00;&#x500B;worker&#x57F7;&#x884C;&#x767C;&#x9001;&#x544A;&#x8B66;&#x90F5;&#x4EF6;&#xFF0C;&#x5176;&#x5B83;beat&#x3001;worker&#x4E0D;&#x80FD;&#x57F7;&#x884C;
+2.&#x5B9A;&#x6642;&#x4EFB;&#x52D9;&#xFF0C;&#x6BCF;&#x500B;beat&#x767C;&#x9001;&#xFF0C;&#x6BCF;&#x500B;Worker&#x57F7;&#x884C;
+&#x5834;&#x666F;&#xFF1A;&#x670D;&#x52D9;&#x5668;&#x4E0A;&#x65E5;&#x5FD7;&#x6587;&#x4EF6;&#x5207;&#x5272;&#xFF0C;&#x6BCF;&#x53F0;&#x90FD;&#x5FC5;&#x9700;&#x57F7;&#x884C;
+3.&#x7570;&#x6B65;&#x8ACB;&#x6C42;&#xFF0C;&#x4E00;&#x500B;&#x8ACB;&#x6C42;&#xFF0C;&#x4E00;&#x500B;Worker&#x57F7;&#x884C;
+&#x5834;&#x666F;&#xFF1A;&#x4E00;&#x822C;&#x4F7F;&#x7528;&#xFF0C;&#x53EA;&#x505A;&#x4E00;&#x6B21;&#x6578;&#x64DA;&#x5237;&#x65B0;
+4.&#x7570;&#x6B65;&#x8ACB;&#x6C42;&#xFF0C;&#x4E00;&#x500B;&#x8ACB;&#x6C42;&#xFF0C;&#x6BCF;&#x500B;Worker&#x57F7;&#x884C;
+&#x5834;&#x666F;&#xFF1A;&#x6587;&#x4EF6;&#x6216;&#x5716;&#x7247;&#x4E0A;&#x50B3;&#xFF0C;&#x6BCF;&#x53F0;&#x670D;&#x52D9;&#x5668;&#x90FD;&#x9700;&#x8981;&#x5728;&#x672C;&#x5730;&#x4FDD;&#x5B58;
+5.&#x8DE8;&#x5E73;&#x53F0;&#x7684;&#x7570;&#x6B65;&#x4EFB;&#x52D9;
+&#x5834;&#x666F;&#xFF1A;CMDB&#x65B0;&#x589E;app&#xFF0C;&#x901A;&#x77E5;&#x5176;&#x5B83;&#x5E73;&#x53F0;&#x66F4;&#x65B0;
+</code></pre>
+<h3 id="&#x4E8C;&#x3001;rabbitmq&#x7684;&#x6A5F;&#x5236;">&#x4E8C;&#x3001;RabbitMQ&#x7684;&#x6A5F;&#x5236;</h3>
+<h4 id="1-direct">1. Direct</h4>
+<p><img src="D:\Work\Notes\Blogs\image\image-20210727064350843.png" alt="image-20210727064350843"></p>
+<pre><code class="lang-shell"># &#x8AAA;&#x660E;
+1. Exchange &#x5C0D;&#x63A5;&#x55AE;&#x4E00;&#x500B; Queue
+2. &#x751F;&#x7522;&#x8005;&#x5C07;&#x6D88;&#x606F;&#x767C;&#x9001;&#x7D66;Exchange&#xFF0C;Exchange&#x8F49;&#x767C;&#x7D66;Queue&#xFF0C;&#x518D;&#x7531;&#x6D88;&#x8CBB;&#x8005;&#x63A5;&#x6536;&#x6D88;&#x606F;
+3. &#x4E00;&#x7B46;&#x6D88;&#x606F;&#xFF0C;&#x53EA;&#x6703;&#x7531;&#x4E00;&#x500B;&#x6D88;&#x8CBB;&#x8005;&#x6D88;&#x8CBB;
+</code></pre>
+<h4 id="2-fanout">2. Fanout</h4>
+<p><img src="D:\Work\Notes\Blogs\image\image-20210727065058346.png" alt="image-20210727065058346"></p>
+<pre><code class="lang-shell"># &#x8AAA;&#x660E;
+1. Exchange &#x5C0D;&#x63A5;&#x591A;&#x500B; Queue
+2. &#x751F;&#x7522;&#x8005;&#x5C07;&#x6D88;&#x606F;&#x767C;&#x9001;&#x7D66;Exchange&#xFF0C;Exchange&#x5C07;&#x6D88;&#x606F;&#x767C;&#x7D66;&#x6240;&#x6709;&#x7D81;&#x5B9A;&#x7684;Queue&#xFF0C;&#x518D;&#x7531;&#x6D88;&#x8CBB;&#x8005;&#x63A5;&#x6536;&#x6D88;&#x606F;
+3. &#x4E00;&#x500B;Queue&#xFF0C;&#x53EA;&#x80FD;&#x7531;&#x4E00;&#x500B;&#x6D88;&#x8CBB;&#x8005;&#x4F86;&#x6D88;&#x8CBB;
+</code></pre>
+<h3 id="&#x4E09;&#x3001;exchange&#x3001;queue&#x7684;&#x898F;&#x5283;">&#x4E09;&#x3001;Exchange&#x3001;Queue&#x7684;&#x898F;&#x5283;</h3>
+<pre><code class="lang-shell"># main/settings.py
+CELERY_TASK_QUEUES = [
+    # &#x505A;&#x70BA;&#x6700;&#x57FA;&#x672C;&#x7684;&#x4F7F;&#x7528;&#xFF0C;&#x4F8B;&#x5982; celery_api&#x7684; Queue&#xFF0C;&#x5BE6;&#x73FE;&#x4E00;&#x500B;&#x8ACB;&#x6C42;&#xFF0C;&#x4E00;&#x500B;&#x57F7;&#x884C;
+    Queue(f&apos;{PROJECT}&apos;),
+    # &#x57FA;&#x65BC;&#x670D;&#x52D9;&#x5668;&#x5275;&#x5EFA; Queue&#xFF0C;&#x4F8B;&#x5982; celery_api.ph190svr016044&#xFF0C;&#x5BE6;&#x73FE;&#x5B9A;&#x6642;&#x4EFB;&#x52D9;&#x5728;&#x6BCF;&#x53F0;&#x670D;&#x52D9;&#x5668;&#x57F7;&#x884C;(&#x65E5;&#x5FD7;&#x5207;&#x5272;)
+    Queue(f&apos;{PROJECT}.{HOSTNAME}&apos;),
+    # &#x57FA;&#x65BC;&#x670D;&#x52D9;&#x5668;&#x5275;&#x5EFA; Queue&#xFF0C;&#x4E26;&#x7D81;&#x5B9A; fanout exchange&#xFF0C;&#x5BE6;&#x73FE;&#x4E00;&#x500B;&#x8ACB;&#x6C42;&#xFF0C;&#x591A;&#x53F0;&#x670D;&#x52D9;&#x5668;&#x57F7;&#x884C;
+    Queue(f&apos;{PROJECT}.{HOSTNAME}&apos;, exchange=Exchange(f&apos;{PROJECT}.fanout&apos;, type=&apos;fanout&apos;)),
+    # &#x57FA;&#x65BC;&#x9805;&#x76EE;&#x5275;&#x5EFA; Queue&#xFF0C;&#x7D81;&#x5B9A;&#x5176;&#x5B83;&#x9805;&#x76EE;&#x7684;fanout exchange&#xFF0C;&#x5BE6;&#x73FE;&#x8DE8;&#x5E73;&#x53F0;&#x7684;&#x6D88;&#x606F;&#x901A;&#x77E5;
+    Queue(f&apos;{PROJECT}.sync&apos;, exchange=Exchange(&apos;cmdb.sync.fanout&apos;, type=&apos;fanout&apos;), routing_key=&apos;cmdb&apos;),
+]
+</code></pre>
+<h3 id="&#x56DB;&#x3001;&#x61C9;&#x7528;">&#x56DB;&#x3001;&#x61C9;&#x7528;</h3>
+<h4 id="1-&#x9650;&#x5236;&#x540C;&#x500B;-queue&#xFF0C;&#x53EA;&#x80FD;&#x57F7;&#x884C;&#x4E00;&#x6B21;">1. &#x9650;&#x5236;&#x540C;&#x500B; Queue&#xFF0C;&#x53EA;&#x80FD;&#x57F7;&#x884C;&#x4E00;&#x6B21;</h4>
+<pre><code class="lang-python"><span class="hljs-comment"># libs/celery/scheduler.py</span>
+
+app = Celery(PROJECT)
+
+<span class="hljs-comment"># &#x7701;&#x7565; ...</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">QueueLockScheduler</span><span class="hljs-params">(PersistentScheduler)</span>:</span>
+    default_queue = PROJECT
+    initialize = <span class="hljs-keyword">False</span>
+
+<span class="hljs-comment"># &#x7701;&#x7565; ...</span>
+
+app.conf.beat_scheduler = QueueLockScheduler
+
+<span class="hljs-comment"># &#x8AAA;&#x660E;&#xFF1A;</span>
+<span class="hljs-number">1.</span> &#x7E7C;&#x627F;&#x6E90;&#x78BC; PersistentScheduler &#x5275;&#x5EFA; QueueLockScheduler&#x985E;
+<span class="hljs-number">2.</span> beat&#x6210;&#x529F;&#x767C;&#x9001;&#x6D88;&#x606F;&#x5F8C;&#xFF0C;&#x6703;&#x5C07;&#x4E0B;&#x4E00;&#x6B21;&#x61C9;&#x8A72;&#x57F7;&#x884C;&#x6642;&#x9593;&#x6233;(next_time)&#x8A18;&#x9304;&#x65BC;lock Queue
+<span class="hljs-number">3.</span> &#x6BCF;&#x6B21;beat&#x5728;&#x767C;&#x9001;&#x6D88;&#x606F;&#x524D;&#xFF0C;&#x6703;&#x8B80;&#x53D6;lock Queue&#x8A0A;&#x606F;&#xFF0C;&#x6BD4;&#x8F03;&#x7576;&#x524D;&#x6642;&#x9593;&#x662F;&#x4E0D;&#x662F;&#x7684;&#x5927;&#x65BC;next_time&#xFF0C;&#x82E5;&#x4E0D;&#x662F;&#x5247;&#x8DF3;&#x904E;&#x4E0D;&#x767C;&#x9001;
+</code></pre>
+<h4 id="2-beat-&#x6307;&#x5B9A;-queue-&#x767C;&#x9001;&#x6D88;&#x606F;">2. Beat &#x6307;&#x5B9A; Queue &#x767C;&#x9001;&#x6D88;&#x606F;</h4>
+<pre><code class="lang-shell"># libs/celery/scheduler.py
+@app.task(queue=f&apos;{PROJECT}.{HOSTNAME}&apos;, expires=60)
+def logrotate(target):
+    tool.logrotate(target, time_format=&apos;%Y%m%d&apos;)
+    return &apos;Success&apos;
+</code></pre>
+<h4 id="3-&#x91DD;&#x5C0D;-fanout-exchange-&#x767C;&#x6D88;&#x606F;">3. &#x91DD;&#x5C0D; fanout exchange &#x767C;&#x6D88;&#x606F;</h4>
+<pre><code class="lang-python"><span class="hljs-comment"># &#x7570;&#x6B65;&#x4EFB;&#x52D9;&#xFF0C;&#x540C;&#x6B65;&#x5716;&#x7247;</span>
+<span class="hljs-keyword">from</span> main.celery <span class="hljs-keyword">import</span> app
+b64code = base64.b64encode(img).decode(<span class="hljs-string">&apos;utf8&apos;</span>)
+kwargs = {
+    <span class="hljs-string">&apos;name&apos;</span>: <span class="hljs-string">&apos;apps.common.tasks.files.add_file&apos;</span>,
+    <span class="hljs-string">&apos;kwargs&apos;</span>: {
+        <span class="hljs-string">&apos;b64code&apos;</span>: b64code,
+        <span class="hljs-string">&apos;path&apos;</span>: <span class="hljs-string">&apos;&apos;</span>
+    },
+    <span class="hljs-string">&apos;exchange&apos;</span>: Exchange(f<span class="hljs-string">&apos;{PROJECT}.fanout&apos;</span>, type=<span class="hljs-string">&apos;fanout&apos;</span>),
+    <span class="hljs-string">&apos;routing_key&apos;</span>: PROJECT,
+}
+kwargs[<span class="hljs-string">&apos;kwargs&apos;</span>][<span class="hljs-string">&apos;path&apos;</span>] = app_static
+app.send_task(**kwargs)
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="./" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Python">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"2021/07/20 Celery介紹及使用場景","level":"1.2.1","depth":2,"previous":{"title":"Python","level":"1.2","depth":1,"path":"python/README.md","ref":"python/README.md","articles":[{"title":"2021/07/20 Celery介紹及使用場景","level":"1.2.1","depth":2,"path":"python/20210720_Celery介紹及使用場景.md","ref":"python/20210720_Celery介紹及使用場景.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python/20210720_Celery介紹及使用場景.md","mtime":"2021-07-27T00:14:45.205Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-10-24T15:42:42.077Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
