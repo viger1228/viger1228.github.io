@@ -1,14 +1,14 @@
 
 <!DOCTYPE HTML>
-<html lang="" >
+<html lang="zh-tw" >
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>2021/07/20 Celery介紹及使用場景 · GitBook</title>
+        <title>2021/07/20 Celery介紹及使用場景 · Walker Blog</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
-        
+        <meta name="author" content="Walker">
         
         
     
@@ -69,7 +69,7 @@
         
             
 <div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search" />
+    <input type="text" placeholder="輸入並搜尋" />
 </div>
 
             
@@ -139,7 +139,7 @@
 
     <li>
         <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+            本書使用 GitBook 釋出
         </a>
     </li>
 </ul>
@@ -179,9 +179,44 @@
                                 
                                 <h1 id="20210720-celery&#x4ECB;&#x7D39;&#x53CA;&#x4F7F;&#x7528;&#x5834;&#x666F;">2021/07/20 Celery&#x4ECB;&#x7D39;&#x53CA;&#x4F7F;&#x7528;&#x5834;&#x666F;</h1>
 <p>[TOC]</p>
+<!-- toc -->
+<ul>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8">&#x57FA;&#x672C;&#x4F7F;&#x7528;</a><ul>
+<li><a href="#%E4%B8%80%E3%80%81%E6%9E%B6%E6%A7%8B%E5%9C%96">&#x4E00;&#x3001;&#x67B6;&#x69CB;&#x5716;</a></li>
+<li><a href="#%E4%BA%8C%E3%80%81%E5%96%AE%E6%A9%9F%E4%BD%BF%E7%94%A8">&#x4E8C;&#x3001;&#x55AE;&#x6A5F;&#x4F7F;&#x7528;</a></li>
+<li><a href="#%E4%B8%89%E3%80%81%E5%88%86%E4%BD%88%E5%BC%8F%E4%BD%BF%E7%94%A8">&#x4E09;&#x3001;&#x5206;&#x4F48;&#x5F0F;&#x4F7F;&#x7528;</a></li>
+</ul>
+</li>
+<li><a href="#%E6%90%AD%E9%85%8Ddjango">&#x642D;&#x914D;Django</a><ul>
+<li><a href="#%E4%B8%80%E3%80%81%E6%9E%B6%E6%A7%8B%E5%9C%96">&#x4E00;&#x3001;&#x67B6;&#x69CB;&#x5716;</a></li>
+<li><a href="#%E4%BA%8C%E3%80%81%E7%9B%AE%E9%8C%84%E8%A8%AD%E8%A8%88">&#x4E8C;&#x3001;&#x76EE;&#x9304;&#x8A2D;&#x8A08;</a></li>
+<li><a href="#%E4%B8%89%E3%80%81%E6%92%B0%E5%AF%AB%E6%8E%A5%E5%8F%A3">&#x4E09;&#x3001;&#x64B0;&#x5BEB;&#x63A5;&#x53E3;</a></li>
+<li><a href="#%E5%9B%9B%E3%80%81%E6%92%B0%E5%AF%ABworker%E4%BB%BB%E5%8B%99">&#x56DB;&#x3001;&#x64B0;&#x5BEB;worker&#x4EFB;&#x52D9;</a></li>
+<li><a href="#%E4%BA%94%E3%80%81%E8%A8%AD%E7%BD%9Dbeat%E5%AE%9A%E6%99%82%E4%BB%BB%E5%8B%99">&#x4E94;&#x3001;&#x8A2D;&#x7F5D;beat&#x5B9A;&#x6642;&#x4EFB;&#x52D9;</a></li>
+<li><a href="#%E5%85%AD%E3%80%81%E5%AF%A6%E7%8F%BE%E7%95%B0%E6%AD%A5%E8%AB%8B%E6%B1%82+%E7%B5%90%E6%9E%9C%E6%9F%A5%E8%A9%A2">&#x516D;&#x3001;&#x5BE6;&#x73FE;&#x7570;&#x6B65;&#x8ACB;&#x6C42;+&#x7D50;&#x679C;&#x67E5;&#x8A62;</a></li>
+</ul>
+</li>
+<li><a href="#%E9%9B%86%E7%BE%A4%E5%B8%83%E7%BD%B2">&#x96C6;&#x7FA4;&#x5E03;&#x7F72;</a><ul>
+<li><a href="#%E4%B8%80%E3%80%81%E4%BA%94%E7%A8%AE%E5%A0%B4%E6%99%AF">&#x4E00;&#x3001;&#x4E94;&#x7A2E;&#x5834;&#x666F;</a></li>
+<li><a href="#%E4%BA%8C%E3%80%81rabbitmq%E7%9A%84%E6%A9%9F%E5%88%B6">&#x4E8C;&#x3001;RabbitMQ&#x7684;&#x6A5F;&#x5236;</a><ul>
+<li><a href="#1.-direct">1. Direct</a></li>
+<li><a href="#2.-fanout">2. Fanout</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%89%E3%80%81exchange%E3%80%81queue%E7%9A%84%E8%A6%8F%E5%8A%83">&#x4E09;&#x3001;Exchange&#x3001;Queue&#x7684;&#x898F;&#x5283;</a></li>
+<li><a href="#%E5%9B%9B%E3%80%81%E6%87%89%E7%94%A8">&#x56DB;&#x3001;&#x61C9;&#x7528;</a><ul>
+<li><a href="#1.-%E9%99%90%E5%88%B6%E5%90%8C%E5%80%8B-queue%EF%BC%8C%E5%8F%AA%E8%83%BD%E5%9F%B7%E8%A1%8C%E4%B8%80%E6%AC%A1">1. &#x9650;&#x5236;&#x540C;&#x500B; Queue&#xFF0C;&#x53EA;&#x80FD;&#x57F7;&#x884C;&#x4E00;&#x6B21;</a></li>
+<li><a href="#2.-beat-%E6%8C%87%E5%AE%9A-queue-%E7%99%BC%E9%80%81%E6%B6%88%E6%81%AF">2. Beat &#x6307;&#x5B9A; Queue &#x767C;&#x9001;&#x6D88;&#x606F;</a></li>
+<li><a href="#3.-%E9%87%9D%E5%B0%8D-fanout-exchange-%E7%99%BC%E6%B6%88%E6%81%AF">3. &#x91DD;&#x5C0D; fanout exchange &#x767C;&#x6D88;&#x606F;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
 <h2 id="&#x57FA;&#x672C;&#x4F7F;&#x7528;">&#x57FA;&#x672C;&#x4F7F;&#x7528;</h2>
 <h3 id="&#x4E00;&#x3001;&#x67B6;&#x69CB;&#x5716;">&#x4E00;&#x3001;&#x67B6;&#x69CB;&#x5716;</h3>
-<p><img src="D:\Work\Notes\Blogs\image\image-20210726053724294.png" alt="image-20210726053724294"></p>
+<p><img src="../image/image-20210726053724294.png" alt="image-20210726053724294"></p>
 <pre><code class="lang-shell"># &#x8AAA;&#x660E;
 1. Celery&#x7684;&#x6A21;&#x584A;&#xFF0C;&#x53EF;&#x4EE5;&#x5206;&#x70BA;beat, worker, broker, backend(&#x53EF;&#x9078;) &#x56DB;&#x500B;&#x90E8;&#x4EFD;
 2. &#x9996;&#x5148;&#xFF0C;&#x6703;&#x5148;&#x5B9A;&#x7FA9;&#x597D;worker&#x9700;&#x8981;&#x57F7;&#x884C;&#x7684;&#x51FD;&#x6578;&#x6216;&#x8173;&#x672C;
@@ -274,7 +309,7 @@ def schedule(sender, **kwargs):
 </code></pre>
 <h2 id="&#x642D;&#x914D;django">&#x642D;&#x914D;Django</h2>
 <h3 id="&#x4E00;&#x3001;&#x67B6;&#x69CB;&#x5716;">&#x4E00;&#x3001;&#x67B6;&#x69CB;&#x5716;</h3>
-<p><img src="D:\Work\Notes\Blogs\image\image-20210726081709325.png" alt="image-20210726081709325"></p>
+<p><img src="../image/image-20210726081709325.png" alt="image-20210726081709325"></p>
 <pre><code class="lang-shell"># &#x8AAA;&#x660E;
 1. &#x64B0;&#x5BEB;Django views&#x5BE6;&#x73FE;&#x5177;&#x9AD4;&#x529F;&#x80FD;
 2. Worker&#x5275;&#x5EFA;request&#x985E;&#x8ABF;&#x7528;views
@@ -399,7 +434,7 @@ def schedule(sender, **kwargs):
 </code></pre>
 <h2 id="&#x96C6;&#x7FA4;&#x5E03;&#x7F72;">&#x96C6;&#x7FA4;&#x5E03;&#x7F72;</h2>
 <h3 id="&#x4E00;&#x3001;&#x4E94;&#x7A2E;&#x5834;&#x666F;">&#x4E00;&#x3001;&#x4E94;&#x7A2E;&#x5834;&#x666F;</h3>
-<p><img src="D:\Work\Notes\Blogs\image\image-20210727052830721.png" alt="image-20210727052830721"></p>
+<p><img src="../image/image-20210727052830721.png" alt="image-20210727052830721"></p>
 <pre><code class="lang-shell">1.&#x5B9A;&#x6642;&#x4EFB;&#x52D9;&#xFF0C;&#x4E00;&#x500B;beat&#x767C;&#x9001;&#xFF0C;&#x4E00;&#x500B;Worker&#x57F7;&#x884C;
 &#x5834;&#x666F;&#xFF1A;&#x76E3;&#x63A7;&#x544A;&#x8B66;&#xFF0C;&#x53EA;&#x80FD;&#x4E00;&#x500B;baet&#x767C;&#x9001;&#x6AA2;&#x6E2C;&#x8ACB;&#x6C42;&#xFF0C;&#x4E00;&#x500B;worker&#x57F7;&#x884C;&#x767C;&#x9001;&#x544A;&#x8B66;&#x90F5;&#x4EF6;&#xFF0C;&#x5176;&#x5B83;beat&#x3001;worker&#x4E0D;&#x80FD;&#x57F7;&#x884C;
 2.&#x5B9A;&#x6642;&#x4EFB;&#x52D9;&#xFF0C;&#x6BCF;&#x500B;beat&#x767C;&#x9001;&#xFF0C;&#x6BCF;&#x500B;Worker&#x57F7;&#x884C;
@@ -413,14 +448,14 @@ def schedule(sender, **kwargs):
 </code></pre>
 <h3 id="&#x4E8C;&#x3001;rabbitmq&#x7684;&#x6A5F;&#x5236;">&#x4E8C;&#x3001;RabbitMQ&#x7684;&#x6A5F;&#x5236;</h3>
 <h4 id="1-direct">1. Direct</h4>
-<p><img src="D:\Work\Notes\Blogs\image\image-20210727064350843.png" alt="image-20210727064350843"></p>
+<p><img src="../image/image-20210727064350843.png" alt="image-20210727064350843"></p>
 <pre><code class="lang-shell"># &#x8AAA;&#x660E;
 1. Exchange &#x5C0D;&#x63A5;&#x55AE;&#x4E00;&#x500B; Queue
 2. &#x751F;&#x7522;&#x8005;&#x5C07;&#x6D88;&#x606F;&#x767C;&#x9001;&#x7D66;Exchange&#xFF0C;Exchange&#x8F49;&#x767C;&#x7D66;Queue&#xFF0C;&#x518D;&#x7531;&#x6D88;&#x8CBB;&#x8005;&#x63A5;&#x6536;&#x6D88;&#x606F;
 3. &#x4E00;&#x7B46;&#x6D88;&#x606F;&#xFF0C;&#x53EA;&#x6703;&#x7531;&#x4E00;&#x500B;&#x6D88;&#x8CBB;&#x8005;&#x6D88;&#x8CBB;
 </code></pre>
 <h4 id="2-fanout">2. Fanout</h4>
-<p><img src="D:\Work\Notes\Blogs\image\image-20210727065058346.png" alt="image-20210727065058346"></p>
+<p><img src="../image/image-20210727065058346.png" alt="image-20210727065058346"></p>
 <pre><code class="lang-shell"># &#x8AAA;&#x660E;
 1. Exchange &#x5C0D;&#x63A5;&#x591A;&#x500B; Queue
 2. &#x751F;&#x7522;&#x8005;&#x5C07;&#x6D88;&#x606F;&#x767C;&#x9001;&#x7D66;Exchange&#xFF0C;Exchange&#x5C07;&#x6D88;&#x606F;&#x767C;&#x7D66;&#x6240;&#x6709;&#x7D81;&#x5B9A;&#x7684;Queue&#xFF0C;&#x518D;&#x7531;&#x6D88;&#x8CBB;&#x8005;&#x63A5;&#x6536;&#x6D88;&#x606F;
@@ -522,7 +557,7 @@ app.send_task(**kwargs)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"2021/07/20 Celery介紹及使用場景","level":"1.2.1","depth":2,"previous":{"title":"Python","level":"1.2","depth":1,"path":"python/README.md","ref":"python/README.md","articles":[{"title":"2021/07/20 Celery介紹及使用場景","level":"1.2.1","depth":2,"path":"python/20210720_Celery介紹及使用場景.md","ref":"python/20210720_Celery介紹及使用場景.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python/20210720_Celery介紹及使用場景.md","mtime":"2021-07-27T00:14:45.205Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-10-24T15:42:42.077Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"2021/07/20 Celery介紹及使用場景","level":"1.2.1","depth":2,"previous":{"title":"Python","level":"1.2","depth":1,"path":"python/README.md","ref":"python/README.md","articles":[{"title":"2021/07/20 Celery介紹及使用場景","level":"1.2.1","depth":2,"path":"python/20210720_Celery介紹及使用場景.md","ref":"python/20210720_Celery介紹及使用場景.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["toc"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"toc":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Walker","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Walker Blog","language":"zh-tw","gitbook":"*","description":"個人技術筆記"},"file":{"path":"python/20210720_Celery介紹及使用場景.md","mtime":"2021-10-24T16:03:19.509Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-10-24T16:03:28.472Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
