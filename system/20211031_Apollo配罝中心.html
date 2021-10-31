@@ -1,0 +1,544 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-tw" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>2021/10/31 Apollo配罝中心 · Walker Blog</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Walker">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../python/" />
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="輸入並搜尋" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    System
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.2.1" data-path="20211031_Apollo配罝中心.html">
+            
+                <a href="20211031_Apollo配罝中心.html">
+            
+                    
+                    2021/10/31 Apollo配罝中心
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../python/">
+            
+                <a href="../python/">
+            
+                    
+                    Python
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../python/20210720_Celery介紹及使用場景.html">
+            
+                <a href="../python/20210720_Celery介紹及使用場景.html">
+            
+                    
+                    2021/07/20 Celery介紹及使用場景
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本書使用 GitBook 釋出
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >2021/10/31 Apollo配罝中心</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="20211031-apollo&#x914D;&#x7F5D;&#x4E2D;&#x5FC3;">2021/10/31 Apollo&#x914D;&#x7F5D;&#x4E2D;&#x5FC3;</h1>
+<p>[TOC]</p>
+<!-- toc -->
+<ul>
+<li><a href="#%E4%B8%80%E3%80%81%E7%B0%A1%E4%BB%8B">&#x4E00;&#x3001;&#x7C21;&#x4ECB;</a></li>
+<li><a href="#%E4%BA%8C%E3%80%81%E6%9E%B6%E6%A7%8B%E5%9C%96">&#x4E8C;&#x3001;&#x67B6;&#x69CB;&#x5716;</a></li>
+<li><a href="#%E4%B8%89%E3%80%81%E5%B8%83%E7%BD%B2">&#x4E09;&#x3001;&#x5E03;&#x7F72;</a><ul>
+<li><a href="#1.-%E7%92%B0%E5%A2%83">1. &#x74B0;&#x5883;</a></li>
+<li><a href="#2.-docker-compose.yml">2. docker-compose.yml</a></li>
+<li><a href="#3.%E5%9F%B7%E8%A1%8C-&amp;-%E5%B0%8E%E5%85%A5%E6%95%B8%E6%93%9A">3.&#x57F7;&#x884C; &amp; &#x5C0E;&#x5165;&#x6578;&#x64DA;</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9B%9B%E3%80%81%E6%B8%AC%E8%A9%A6">&#x56DB;&#x3001;&#x6E2C;&#x8A66;</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="&#x4E00;&#x3001;&#x7C21;&#x4ECB;">&#x4E00;&#x3001;&#x7C21;&#x4ECB;</h2>
+<p>Apollo&#x662F;&#x4E2D;&#x570B;&#x643A;&#x7A0B;&#x6846;&#x67B6;&#x7814;&#x767C;&#x90E8;&#x6240;&#x958B;&#x767C;&#x7684;&#x958B;&#x6E90;&#x9805;&#x76EE;&#xFF0C;&#x5BE6;&#x73FE;&#x5206;&#x5E03;&#x5F0F;&#x7684;&#x914D;&#x7BA1;&#x7406;&#x4E2D;&#x5FC3;&#xFF0C;&#x672C;&#x6587;&#x7AE0;&#x662F;&#x57FA;&#x65BC;&#x5B98;&#x65B9;&#x6587;&#x6A94;&#x6574;&#x7406;&#x7684;&#x5E03;&#x7F72;&#x7B46;&#x8A18;&#xFF0C;&#x7D30;&#x7BC0;&#x53EF;&#x4EE5;&#x67E5;&#x770B;<a href="https://github.com/apolloconfig/apollo" target="_blank">&#x5B98;&#x7DB2;</a></p>
+<h2 id="&#x4E8C;&#x3001;&#x67B6;&#x69CB;&#x5716;">&#x4E8C;&#x3001;&#x67B6;&#x69CB;&#x5716;</h2>
+<p><img src="../image/image-20211101003953648.png"></p>
+<p>&#x8AAA;&#x660E;&#xFF1A;</p>
+<p>Apolloe &#x662F;&#x7531;Portal&#x3001;Admin&#x3001;Config &#x4E09;&#x500B;&#x6A21;&#x584A;&#x7D44;&#x6210;&#xFF0C;Portal&#x4E3B;&#x8981;&#x662F;&#x7BA1;&#x7406;&#x5F8C;&#x53F0;&#xFF0C;&#x518D;&#x901A;&#x904E;&#x4E0D;&#x540C;&#x7684;&#x914D;&#x7F5D;&#xFF0C;&#x8A2A;&#x554F;&#x4E0D;&#x540C;&#x74B0;&#x5883;&#x7684;&#x914D;&#x7F5D;&#x4E2D;&#x5FC3;&#xFF0C;&#x82E5;&#x5BE6;&#x969B;&#x61C9;&#x7528;&#x4E0A;&#x6709;&#x9700;&#x8981;DEV&#x3001;UAT&#x3001;PRO&#x4E09;&#x500B;&#x74B0;&#x5883;&#xFF0C;&#x5247;&#x6703;&#x9700;&#x8981;&#x4E09;&#x5957;Admin+Config</p>
+<h2 id="&#x4E09;&#x3001;&#x5E03;&#x7F72;">&#x4E09;&#x3001;&#x5E03;&#x7F72;</h2>
+<h3 id="1-&#x74B0;&#x5883;">1. &#x74B0;&#x5883;</h3>
+<table>
+<thead>
+<tr>
+<th>URL</th>
+<th>&#x8AAA;&#x660E;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://192.168.1.17:8070" target="_blank">http://192.168.1.17:8070</a></td>
+<td>Apollo-Portal</td>
+</tr>
+<tr>
+<td><a href="http://192.168.1.17:18080" target="_blank">http://192.168.1.17:18080</a></td>
+<td>Apollo-Admin-Dev</td>
+</tr>
+<tr>
+<td><a href="http://192.168.1.17:18090" target="_blank">http://192.168.1.17:18090</a></td>
+<td>Apollo-Config-Dev</td>
+</tr>
+<tr>
+<td><a href="http://192.168.1.17:28080" target="_blank">http://192.168.1.17:28080</a></td>
+<td>Apollo-Admin-Uat</td>
+</tr>
+<tr>
+<td><a href="http://192.168.1.17:28090" target="_blank">http://192.168.1.17:28090</a></td>
+<td>Apollo-Config-Uat</td>
+</tr>
+<tr>
+<td><a href="http://192.168.1.17:38080" target="_blank">http://192.168.1.17:38080</a></td>
+<td>Apollo-Admin-Pro</td>
+</tr>
+<tr>
+<td><a href="http://192.168.1.17:38090" target="_blank">http://192.168.1.17:38090</a></td>
+<td>Apollo-Config-Pro</td>
+</tr>
+</tbody>
+</table>
+<p>&#x6CE8;&#xFF1A;192.168.1.17 &#x70BA;&#x6E2C;&#x8A66;&#x6A5F;IP</p>
+<h3 id="2-docker-composeyml">2. docker-compose.yml</h3>
+<pre><code class="lang-yaml"><span class="hljs-attr">version:</span> <span class="hljs-string">&apos;3&apos;</span>
+
+<span class="hljs-attr">services:</span>
+  <span class="hljs-comment"># Portal</span>
+<span class="hljs-attr">  apollo-portal:</span>
+<span class="hljs-attr">    container_name:</span> apollo-portal
+<span class="hljs-attr">    image:</span> <span class="hljs-string">&apos;apolloconfig/apollo-portal:1.9.1&apos;</span>
+<span class="hljs-attr">    user:</span> root
+<span class="hljs-attr">    restart:</span> always
+    <span class="hljs-comment"># &#x74B0;&#x5883;&#x8B8A;&#x91CF;&#x4E2D;&#x8A2D;&#x7F5D;&#x4E0D;&#x540C;&#x74B0;&#x5883;&#x7684;URL&#x5730;&#x5740;</span>
+<span class="hljs-attr">    environment:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;SPRING_DATASOURCE_URL=jdbc:mysql://apollo-db:3306/ApolloPortalDB?characterEncoding=utf8&apos;</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;SPRING_DATASOURCE_USERNAME=root&apos;</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;SPRING_DATASOURCE_PASSWORD=P@ssw0rd&apos;</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;APOLLO_PORTAL_ENVS=dev,uat,pro&apos;</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;DEV_META=http://apollo-config-dev:8080&apos;</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;UAT_META=http://apollo-config-uat:8080&apos;</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;PRO_META=http://apollo-config-pro:8080&apos;</span>
+<span class="hljs-attr">    ports:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;8070:8070&apos;</span>
+<span class="hljs-attr">    volumes:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;/opt/apollo/apollo-portal:/opt/logs&apos;</span>
+<span class="hljs-attr">    depends_on:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;apollo-db&apos;</span>
+
+  <span class="hljs-comment"># &#x6578;&#x64DA;&#x5EAB;</span>
+<span class="hljs-attr">  apollo-db:</span>
+<span class="hljs-attr">    container_name:</span> apollo-db
+<span class="hljs-attr">    image:</span> <span class="hljs-string">&apos;percona:8.0&apos;</span>
+<span class="hljs-attr">    user:</span> root
+<span class="hljs-attr">    restart:</span> always
+<span class="hljs-attr">    command:</span> <span class="hljs-string">&apos;mysqld --user=root&apos;</span>
+<span class="hljs-attr">    environment:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;MYSQL_DATABASE=db&apos;</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;MYSQL_ROOT_PASSWORD=P@ssw0rd&apos;</span>
+<span class="hljs-attr">    ports:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;3306:3306&apos;</span>
+<span class="hljs-attr">    volumes:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;/opt/apollo/apollo-db:/var/lib/mysql&apos;</span>  
+
+  <span class="hljs-comment"># DEV &#x74B0;&#x5883;</span>
+<span class="hljs-attr">  apollo-admin-dev:</span>
+<span class="hljs-attr">    container_name:</span> apollo-admin-dev
+<span class="hljs-attr">    image:</span> <span class="hljs-string">&apos;apolloconfig/apollo-adminservice:1.9.1&apos;</span>
+<span class="hljs-attr">    user:</span> root
+<span class="hljs-attr">    restart:</span> always
+    <span class="hljs-comment"># &#x4E0D;&#x540C;&#x74B0;&#x5883;&#x9700;&#x8981;&#x4E0D;&#x540C;&#x6578;&#x64DA;&#x5EAB;</span>
+<span class="hljs-attr">    environment:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;SPRING_DATASOURCE_URL=jdbc:mysql://apollo-db:3306/ApolloConfigDevDB?characterEncoding=utf8&apos;</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;SPRING_DATASOURCE_USERNAME=root&apos;</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;SPRING_DATASOURCE_PASSWORD=P@ssw0rd&apos;</span>
+<span class="hljs-attr">    ports:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;18090:8090&apos;</span>
+<span class="hljs-attr">    volumes:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;/opt/apollo/apollo-admin-dev:/opt/logs&apos;</span>
+<span class="hljs-attr">    depends_on:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;apollo-db&apos;</span>
+
+<span class="hljs-attr">  apollo-config-dev:</span>
+<span class="hljs-attr">    container_name:</span> apollo-config-dev
+<span class="hljs-attr">    image:</span> <span class="hljs-string">&apos;apolloconfig/apollo-configservice:1.9.1&apos;</span>
+<span class="hljs-attr">    user:</span> root
+<span class="hljs-attr">    restart:</span> always
+    <span class="hljs-comment"># &#x4E0D;&#x540C;&#x74B0;&#x5883;&#x9700;&#x8981;&#x4E0D;&#x540C;&#x6578;&#x64DA;&#x5EAB;</span>
+<span class="hljs-attr">    environment:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;SPRING_DATASOURCE_URL=jdbc:mysql://apollo-db:3306/ApolloConfigDevDB?characterEncoding=utf8&apos;</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;SPRING_DATASOURCE_USERNAME=root&apos;</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;SPRING_DATASOURCE_PASSWORD=P@ssw0rd&apos;</span>
+<span class="hljs-attr">    ports:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;18080:8080&apos;</span>
+<span class="hljs-attr">    volumes:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;/opt/apollo/apollo-config-dev:/opt/logs&apos;</span>
+<span class="hljs-attr">    depends_on:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;apollo-db&apos;</span>
+
+  <span class="hljs-comment"># UAT &#x74B0;&#x5883;</span>
+<span class="hljs-attr">  apollo-admin-uat:</span>
+<span class="hljs-attr">    container_name:</span> apollo-admin-uat
+<span class="hljs-attr">    image:</span> <span class="hljs-string">&apos;apolloconfig/apollo-adminservice:1.9.1&apos;</span>
+<span class="hljs-attr">    user:</span> root
+<span class="hljs-attr">    restart:</span> always
+    <span class="hljs-comment"># &#x4E0D;&#x540C;&#x74B0;&#x5883;&#x9700;&#x8981;&#x4E0D;&#x540C;&#x6578;&#x64DA;&#x5EAB;</span>
+<span class="hljs-attr">    environment:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;SPRING_DATASOURCE_URL=jdbc:mysql://apollo-db:3306/ApolloConfigUatDB?characterEncoding=utf8&apos;</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;SPRING_DATASOURCE_USERNAME=root&apos;</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;SPRING_DATASOURCE_PASSWORD=P@ssw0rd&apos;</span>
+<span class="hljs-attr">    ports:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;28090:8090&apos;</span>
+<span class="hljs-attr">    volumes:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;/opt/apollo/apollo-admin-uat:/opt/logs&apos;</span>
+<span class="hljs-attr">    depends_on:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;apollo-db&apos;</span>
+
+<span class="hljs-attr">  apollo-config-uat:</span>
+<span class="hljs-attr">    container_name:</span> apollo-config-uat
+<span class="hljs-attr">    image:</span> <span class="hljs-string">&apos;apolloconfig/apollo-configservice:1.9.1&apos;</span>
+<span class="hljs-attr">    user:</span> root
+<span class="hljs-attr">    restart:</span> always
+    <span class="hljs-comment"># &#x4E0D;&#x540C;&#x74B0;&#x5883;&#x9700;&#x8981;&#x4E0D;&#x540C;&#x6578;&#x64DA;&#x5EAB;</span>
+<span class="hljs-attr">    environment:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;SPRING_DATASOURCE_URL=jdbc:mysql://apollo-db:3306/ApolloConfigUatDB?characterEncoding=utf8&apos;</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;SPRING_DATASOURCE_USERNAME=root&apos;</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;SPRING_DATASOURCE_PASSWORD=P@ssw0rd&apos;</span>
+<span class="hljs-attr">    ports:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;28080:8080&apos;</span>
+<span class="hljs-attr">    volumes:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;/opt/apollo/apollo-config-uat:/opt/logs&apos;</span>
+<span class="hljs-attr">    depends_on:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;apollo-db&apos;</span>
+
+  <span class="hljs-comment"># PRO &#x74B0;&#x5883;</span>
+<span class="hljs-attr">  apollo-admin-pro:</span>
+<span class="hljs-attr">    container_name:</span> apollo-admin-pro
+<span class="hljs-attr">    image:</span> <span class="hljs-string">&apos;apolloconfig/apollo-adminservice:1.9.1&apos;</span>
+<span class="hljs-attr">    user:</span> root
+<span class="hljs-attr">    restart:</span> always
+    <span class="hljs-comment"># &#x4E0D;&#x540C;&#x74B0;&#x5883;&#x9700;&#x8981;&#x4E0D;&#x540C;&#x6578;&#x64DA;&#x5EAB;</span>
+<span class="hljs-attr">    environment:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;SPRING_DATASOURCE_URL=jdbc:mysql://apollo-db:3306/ApolloConfigProDB?characterEncoding=utf8&apos;</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;SPRING_DATASOURCE_USERNAME=root&apos;</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;SPRING_DATASOURCE_PASSWORD=P@ssw0rd&apos;</span>
+<span class="hljs-attr">    ports:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;38090:8090&apos;</span>
+<span class="hljs-attr">    volumes:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;/opt/apollo/apollo-admin-pro:/opt/logs&apos;</span>
+<span class="hljs-attr">    depends_on:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;apollo-db&apos;</span>
+
+<span class="hljs-attr">  apollo-config-pro:</span>
+<span class="hljs-attr">    container_name:</span> apollo-config-pro
+<span class="hljs-attr">    image:</span> <span class="hljs-string">&apos;apolloconfig/apollo-configservice:1.9.1&apos;</span>
+<span class="hljs-attr">    user:</span> root
+<span class="hljs-attr">    restart:</span> always
+    <span class="hljs-comment"># &#x4E0D;&#x540C;&#x74B0;&#x5883;&#x9700;&#x8981;&#x4E0D;&#x540C;&#x6578;&#x64DA;&#x5EAB;</span>
+<span class="hljs-attr">    environment:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;SPRING_DATASOURCE_URL=jdbc:mysql://apollo-db:3306/ApolloConfigProDB?characterEncoding=utf8&apos;</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;SPRING_DATASOURCE_USERNAME=root&apos;</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;SPRING_DATASOURCE_PASSWORD=P@ssw0rd&apos;</span>
+<span class="hljs-attr">    ports:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;38080:8080&apos;</span>
+<span class="hljs-attr">    volumes:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;/opt/apollo/apollo-config-pro:/opt/logs&apos;</span>
+<span class="hljs-attr">    depends_on:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">&apos;apollo-db&apos;</span>
+</code></pre>
+<h3 id="3&#x57F7;&#x884C;--&#x5C0E;&#x5165;&#x6578;&#x64DA;">3.&#x57F7;&#x884C; &amp; &#x5C0E;&#x5165;&#x6578;&#x64DA;</h3>
+<p>&#x555F;&#x52D5; docker-compose</p>
+<pre><code class="lang-shell">&gt;&gt; docker-compose up -d
+</code></pre>
+<p>&#x7531;&#x65BC;&#x662F;&#x4F7F;&#x7528;MySQL8&#xFF0C;&#x5BC6;&#x78BC;&#x8A8D;&#x8B49;&#x9700;&#x8981;&#x66F4;&#x6539;</p>
+<p>&#x6CE8;&#xFF1A;&#x8ACB;&#x81EA;&#x884C;&#x52A0;&#x56FA;&#x5BC6;&#x78BC;&#x5B89;&#x5168;</p>
+<pre><code class="lang-shell">&gt;&gt; docker exec -it apollo-db mysql -uroot -pP@ssw0rd -e &quot;ALTER USER &apos;root&apos;@&apos;%&apos; IDENTIFIED WITH mysql_native_password BY &apos;P@ssw0rd&apos;;&quot;
+</code></pre>
+<p>&#x5275;&#x5EFA;&#x6578;&#x64DA;&#x5EAB;</p>
+<pre><code class="lang-shell">&gt;&gt; mysql -h 192.168.1.17 -u root -pP@ssw0rd -e &apos;CREATE DATABASE ApolloPortalDB DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;&apos;
+&gt;&gt; mysql -h 192.168.1.17 -u root -pP@ssw0rd -e &apos;CREATE DATABASE ApolloConfigDevDB DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;&apos;
+&gt;&gt; mysql -h 192.168.1.17 -u root -pP@ssw0rd -e &apos;CREATE DATABASE ApolloConfigUatDB DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;&apos;
+&gt;&gt; mysql -h 192.168.1.17 -u root -pP@ssw0rd -e &apos;CREATE DATABASE ApolloConfigProDB DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;&apos;
+</code></pre>
+<p>&#x5C0E;&#x5165;&#x6578;&#x64DA;</p>
+<pre><code class="lang-shell">&gt;&gt; wget https://raw.githubusercontent.com/apolloconfig/apollo-build-scripts/master/sql/apolloconfigdb.sql
+&gt;&gt; wget https://raw.githubusercontent.com/apolloconfig/apollo-build-scripts/master/sql/apolloportaldb.sql
+# &#x9700;&#x8981;&#x4FEE;&#x6539; apolloconfigdb.sql&#xFF0C;&#x79FB;&#x9664;&#x5275;&#x5EFA;&#x6578;&#x64DA;&#x5EAB;SQL
+
+&gt;&gt; mysql -h 192.168.1.17 -u root -pP@ssw0rd ApolloPortalDB &lt; apolloportaldb.sql 
+&gt;&gt; mysql -h 192.168.1.17 -u root -pP@ssw0rd ApolloConfigDevDB &lt; apolloconfigdb.sql
+&gt;&gt; mysql -h 192.168.1.17 -u root -pP@ssw0rd ApolloConfigUatDB &lt; apolloconfigdb.sql 
+&gt;&gt; mysql -h 192.168.1.17 -u root -pP@ssw0rd ApolloConfigProDB &lt; apolloconfigdb.sql
+</code></pre>
+<p>&#x4FEE;&#x6539;&#x5404;&#x74B0;&#x5883;admin&#x8B80;&#x53D6;config&#x670D;&#x52D9;&#x7684;URL</p>
+<pre><code class="lang-shell">&gt;&gt; mysql -h 192.168.1.17 -u root -p 
+&gt;&gt; UPDATE ApolloConfigDevDB.ServerConfig SET `value`=&apos;http://apollo-config-dev:8080/eureka/&apos; WHERE `key`=&apos;eureka.service.url&apos;;
+&gt;&gt; UPDATE ApolloConfigUatDB.ServerConfig SET `value`=&apos;http://apollo-config-uat:8080/eureka/&apos; WHERE `key`=&apos;eureka.service.url&apos;;
+&gt;&gt; UPDATE ApolloConfigProDB.ServerConfig SET `value`=&apos;http://apollo-config-pro:8080/eureka/&apos; WHERE `key`=&apos;eureka.service.url&apos;;
+</code></pre>
+<h2 id="&#x56DB;&#x3001;&#x6E2C;&#x8A66;">&#x56DB;&#x3001;&#x6E2C;&#x8A66;</h2>
+<p>&#x53EF;&#x4EE5;&#x8A2A;&#x554F;&#x500B;&#x74B0;&#x5883;&#x7684;Admin&#x9801;&#x9762;&#xFF0C;&#x78BA;&#x8A8D;&#x670D;&#x52D9;&#x662F;&#x5426;&#x6B63;&#x5E38;&#x555F;&#x7528;&#xFF0C;&#x5982; 192.168.1.17:18080</p>
+<p><img src="../image/image-20211101010847742.png"></p>
+<p>&#x8A2A;&#x554F; Portal &#x9801;&#x9762;(192.168.1.17:8070)&#xFF0C;&#x9ED8;&#x8A8D;&#x5E33;&#x5BC6; apollo/admin</p>
+<p><img src="../image/image-20211101011113562.png"></p>
+<p>&#x6E2C;&#x8A66;&#x914D;&#x7F5D;&#x6587;&#x4EF6;&#x7684;&#x6293;&#x53D6;&#xFF0C;&#x4E0D;&#x540C;URL&#x4EE3;&#x8868;&#x4E0D;&#x540C;&#x74B0;&#x5883;&#xFF0C;&#x6C92;&#x7570;&#x5E38;&#x7684;&#x8A71;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x7D66;&#x7A0B;&#x5E8F;&#x6B63;&#x5E38;&#x8ABF;&#x7528;</p>
+<pre><code class="lang-shell">&gt;&gt; curl &apos;http://192.168.1.17:18080/configs/SampleApp/default/application&apos;
+{&quot;appId&quot;:&quot;SampleApp&quot;,&quot;cluster&quot;:&quot;default&quot;,&quot;namespaceName&quot;:&quot;application&quot;,&quot;configurations&quot;:{&quot;timeout&quot;:&quot;100&quot;},&quot;releaseKey&quot;:&quot;20211101001334-1dc5a1de1881599c&quot;}
+&gt;&gt; curl &apos;http://192.168.1.17:28080/configs/SampleApp/default/application&apos;
+{&quot;appId&quot;:&quot;SampleApp&quot;,&quot;cluster&quot;:&quot;default&quot;,&quot;namespaceName&quot;:&quot;application&quot;,&quot;configurations&quot;:{&quot;timeout&quot;:&quot;100&quot;},&quot;releaseKey&quot;:&quot;20211101001349-1dc5adf81c2a26a2&quot;}
+&gt;&gt; curl &apos;http://192.168.1.17:38080/configs/SampleApp/default/application&apos;
+{&quot;appId&quot;:&quot;SampleApp&quot;,&quot;cluster&quot;:&quot;default&quot;,&quot;namespaceName&quot;:&quot;application&quot;,&quot;configurations&quot;:{&quot;timeout&quot;:&quot;100&quot;},&quot;releaseKey&quot;:&quot;20211101001400-1dc5a7eb1af82f79&quot;}
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: System">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../python/" class="navigation navigation-next " aria-label="Next page: Python">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"2021/10/31 Apollo配罝中心","level":"1.2.1","depth":2,"next":{"title":"Python","level":"1.3","depth":1,"path":"python/README.md","ref":"python/README.md","articles":[{"title":"2021/07/20 Celery介紹及使用場景","level":"1.3.1","depth":2,"path":"python/20210720_Celery介紹及使用場景.md","ref":"python/20210720_Celery介紹及使用場景.md","articles":[]}]},"previous":{"title":"System","level":"1.2","depth":1,"path":"system/README.md","ref":"system/README.md","articles":[{"title":"2021/10/31 Apollo配罝中心","level":"1.2.1","depth":2,"path":"system/20211031_Apollo配罝中心.md","ref":"system/20211031_Apollo配罝中心.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["toc"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"toc":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Walker","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Walker Blog","language":"zh-tw","gitbook":"*","description":"個人技術筆記"},"file":{"path":"system/20211031_Apollo配罝中心.md","mtime":"2021-10-31T17:28:38.359Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-10-31T17:31:59.756Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
